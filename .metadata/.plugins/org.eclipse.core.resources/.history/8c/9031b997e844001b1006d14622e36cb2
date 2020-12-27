@@ -1,0 +1,27 @@
+package codingtest;
+
+import java.util.*;
+public class main {
+
+	public static void main(String[] args) {
+		
+		Address addr ;
+		
+		System.out.println(Arrays.toString(Address.values()));
+	}
+}
+
+
+
+enum Address{
+	
+	SEOUL("서울입ㄴ디ㅏㅇ"),
+	BUSAN("부산입니당");
+	
+	String des;
+	
+	Address(String des){
+		this.des = des;
+	}
+	
+}

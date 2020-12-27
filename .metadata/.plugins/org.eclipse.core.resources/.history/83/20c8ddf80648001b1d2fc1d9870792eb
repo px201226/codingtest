@@ -1,0 +1,16 @@
+package codingtest;
+
+import java.util.*;
+public class main {
+
+	public static void main(String[] args) {
+		
+
+		
+		for(int i=0;i<=6; i++) {
+			System.out.println((int)( i / (double)6 * 100));
+		}
+	}
+}
+
+
