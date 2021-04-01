@@ -2,7 +2,7 @@ package boj.prb107;
 
 /*
 https://www.acmicpc.net/problem/1182
-부분수열의합
+부분수열의합1
  * */
 
 import java.io.BufferedReader;
