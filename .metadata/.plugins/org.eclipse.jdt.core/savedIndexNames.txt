@@ -1,3 +1,0 @@
-INDEX VERSION 1.131+C:\Users\Lee-Gi-Su\IdeaProjects\codingtest\.metadata\.plugins\org.eclipse.jdt.core
-175229977.index
-1248545562.index

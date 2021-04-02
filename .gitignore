@@ -1,18 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
-.out/
-.metadata/.mylyn/contexts/
-.metadata/.plugins/org.eclipse.buildship.core/
-.metadata/.plugins/org.eclipse.core.resources/.history/1c/
-.metadata/.plugins/org.eclipse.core.resources/.history/2a/
-.metadata/.plugins/org.eclipse.core.resources/.history/72/
-.metadata/.plugins/org.eclipse.core.resources/.history/75/
-.metadata/.plugins/org.eclipse.core.resources/.history/ef/
-.metadata/.plugins/org.eclipse.core.resources/.projects/codingtest/org.eclipse.jdt.apt.core/
-.metadata/.plugins/org.eclipse.emf.common.ui/
-.metadata/.plugins/org.eclipse.mylyn.context.core/
-.metadata/.plugins/org.eclipse.mylyn.tasks.ui/
-.metadata/.plugins/org.eclipse.oomph.setup.ui/
-.metadata/.plugins/org.eclipse.userstorage.oauth/
+out/
+.metadata/
 src/2020kakao/
 src/kakao2020/main1/
 src/stack6/
