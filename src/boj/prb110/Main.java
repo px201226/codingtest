@@ -1,86 +1,54 @@
-package boj.prb109;
+package boj.prb110;
 
 /*
-https://www.acmicpc.net/problem/16197
-두동전
+https://www.acmicpc.net/problem/16198
+에너지 모으기
  * */
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.*;
-
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.StringTokenizer;
 public class Main {
 
-    private static int[][] dir = new int[][]{ {0,-1},{1,0},{0,1},{-1,0}};
     public static void main(String[] args) throws NumberFormatException, IOException {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(br.readLine());
+        int[] arr = new int[N];
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int H = Integer.parseInt(st.nextToken());
-        int W = Integer.parseInt(st.nextToken());
-        char[][] map = new char[H][W];
-        List<int []> balls = new ArrayList<>();
-        for(int h=0;h<H;h++){
-            String temp = br.readLine();
-            for(int w=0; w<W; w++){
-                map[h][w] = temp.charAt(w);
-                if(map[h][w] == 'o') balls.add(new int[]{w,h});
-            }
+        for(int i=0; i<N; i++){
+            arr[i] = Integer.parseInt(st.nextToken());
         }
-        int answer = DFS(map,balls,0,-1);
-        System.out.println(answer == Integer.MAX_VALUE ? -1 : answer);
+        System.out.println(DFS(arr,new boolean[N], 0 ,0 ));
     }
 
-    public static int DFS(char[][] map, List<int[]> balls, int depth, int exceptionDir){
-        if(depth > 10){
-            return Integer.MAX_VALUE;
-        }
-        if(balls.size() == 1){
-            return depth;
+    public static int DFS(int[] arr, boolean[] isSelect, int size, int result){
+        if(size == arr.length - 2){
+            return result;
         }
 
-        if(balls.size() == 0){
-            return Integer.MAX_VALUE;
-        }
-
-
-        int answer = Integer.MAX_VALUE;
-        for(int d=0; d<4; d++){
-            if(d == exceptionDir) continue;
-            boolean isMoved = false;
-            List<int []> copyBalls = new ArrayList<>();
-            for(int[] point : balls) copyBalls.add(new int[]{point[0],point[1]});
-            Iterator<int[]> iterator = copyBalls.iterator();
-
-            while (iterator.hasNext()){
-                int[] point = iterator.next();
-                int dx = point[0] + dir[d][0]; int dy = point[1] + dir[d][1];
-//                System.out.println(Arrays.toString(point) + "가 " + d + "방향으로 가서");
-
-                if(dx < 0 || dx >= map[0].length || dy < 0 || dy >= map.length){
-                    iterator.remove();
-//                    System.out.println("삭제되었");
-                    isMoved = true;
-                }else if (map[dy][dx] == '.' || map[dy][dx] == 'o'){
-                    point[0] = dx; point[1] = dy;
-//                    System.out.println("이동");
-                    isMoved = true;
-                }else {
-//                    System.out.println("벽");
-                }
-            }
-
-            if(isMoved){
-//                System.out.println("isMoved");
-                answer = Math.min(answer,DFS(map, copyBalls,depth+1,(d+2)%4));
-            }else{
-//                System.out.println("안움직임");
+        int answer = Integer.MIN_VALUE;
+        for(int i=1; i<arr.length -1; i++){
+            if(isSelect[i] == false){
+                isSelect[i] = true;
+                int sum = arr[getNearIdx(isSelect,i,1)] * arr[getNearIdx(isSelect,i,-1)];
+                answer = Math.max(answer,DFS(arr,isSelect,size+1, result + sum));
+                isSelect[i] = false;
             }
         }
+
         return answer;
     }
 
+    public static int getNearIdx(boolean[] isSelect,int base, int increase){
+        for(int i=base; i >= 0 && i < isSelect.length; i += increase){
+            if(!isSelect[i]) return i;
+        }
+        return -1;
+    }
 
 }
