@@ -11,12 +11,15 @@ import java.util.Arrays;
 import java.util.List;
 
 class Solution {
+    private int count = 0;
     public static void main(String[] args) {
 
-        int[][] need = new int[][]{ {1,1,1,1,1,1,1,1,1,1,1,0,1,1,1},{1,1,0,1,1,1,1,1,1,1,1,1,1,1,1} };
+        int[][] need = new int[][]{
+                {1},{0}
+        };
 
         Solution solution = new Solution();
-        solution.solution(need,13);
+        solution.solution(need,1);
     }
     public int solution(int[][] needs, int r) {
         int answer = comb(new ArrayList<>(),needs, needs[0].length, r,0);
@@ -25,6 +28,7 @@ class Solution {
     }
     public int comb(List<Integer> list, int[][] needs, int N, int r, int begin){
         if(r==0){
+            count++;
             System.out.println(Arrays.toString(list.toArray()));
             int answer = 0;
             for(int i=0; i<needs.length; i++){
