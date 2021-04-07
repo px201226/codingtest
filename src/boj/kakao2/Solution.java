@@ -2,8 +2,9 @@ package boj.kakao2;
 
 
 /*
- * https://programmers.co.kr/learn/courses/30/lessons/70129
- * DP dynamic programming, 변수의 범위를 알아야 풀 수 있는 문제
+ * for(int j=0; j<needs[i].length; j++){
+ * 배열이  {0},{0},{0},{0},{0},{0,1,1} 이런것이 있음..
+ * Ragged Array 원소 갯수가 다른 배열이 존재..
  * */
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ class Solution {
     public static void main(String[] args) {
 
         int[][] need = new int[][]{
-                {1},{0}
+                {0},{0},{0},{0},{0},{0,1,1}
         };
 
         Solution solution = new Solution();
@@ -33,7 +34,9 @@ class Solution {
             int answer = 0;
             for(int i=0; i<needs.length; i++){
                 boolean isSuccess = true;
-                for(int j=0; j<needs[0].length; j++){
+
+                for(int j=0; j<needs[i].length; j++){
+                    System.out.println(needs[i][j]);
                     if(needs[i][j] == 1){
                         if(!list.contains(j)){
                             isSuccess = false;
