@@ -3,75 +3,90 @@ package boj.dev2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 
 class Solution {
     public static void main(String[] args) {
 
         Solution solution = new Solution();
-        int[] solution1 = solution.solution(6,6, new int[][]{{2,2,2,2},{3,3,6,6},{5,1,6,3}});
-         System.out.println(Arrays.toString(solution1));
+        int[] solution1 = solution.solution(6,6, new int[][]{{2,2,5,4},{3,3,6,6},{5,1,6,3}});
+
     }
+
 
     public int[] solution(int rows, int columns, int[][] queries) {
-        int[][] maps = new int[rows][columns];
-
-        int count =1;
-        for(int i=0; i<rows; i++){
-            for(int j=0; j<columns; j++){
-                maps[i][j] = count++;
-            }
+        int[][] array = new int[rows][columns];
+        int count = 1 ;
+        for(int i=0; i<array.length; i++){
+            for(int j=0; j<array[0].length; j++)
+                array[i][j] = count++;
         }
         int[] answer = new int[queries.length];
-        int idx =0;
+        for(int i=0; i<array.length; i++) System.out.println(Arrays.toString(array[i]));
+
+        int idx = 0;
         for(int[] query : queries){
-            int min = rotate(maps,query[0],query[1],query[2],query[3]);
-            answer[idx++]=min;
+            List<Integer> outLineInArray = getOutLineInArray(array, query[1]-1, query[0]-1, query[3] - query[1]+1 , query[2] - query[0] );
+            System.out.println(Arrays.toString(outLineInArray.toArray()));
+            answer[idx++] = outLineInArray.stream().mapToInt(i->i).min().getAsInt();
+            outLineInArray.add(0, outLineInArray.remove(outLineInArray.size()-1));
+            fill(array, query[1]-1, query[0]-1, query[3] - query[1]+1 , query[2] - query[0],outLineInArray);
+            for(int i=0; i<array.length; i++) System.out.println(Arrays.toString(array[i]));
+            System.out.println("==");
+
         }
-        return answer;
+        System.out.println(Arrays.toString(answer));
+        return null;
 
     }
+    public List<Integer> fill(int[][] array, int x, int y, int width, int height, List<Integer> list){
+        int increase = 1;
+        int N = (width + height) * 2 -2;
+        int idx = 0;
+        x--;
+        List<Integer> result = new ArrayList<>();
 
-    public int rotate(int[][] maps, int x1, int y1, int x2, int y2){
-        x1--;y1--;x2--;y2--;
-        int min = Integer.MAX_VALUE;
-        ArrayList<Integer> list = new ArrayList<>();
-        for(int w=y1; w<=y2; w++){
-            list.add(maps[x1][w]);
-        }
-
-        for(int h=x1+1; h<=x2; h++){
-            list.add(maps[h][y2]);
-        }
-
-        for(int w=y2-1; w>=y1; w--){
-            list.add(maps[x2][w]);
-        }
-
-        for(int h=x2-1; h>=x1+1; h--){
-            list.add(maps[h][x1]);
-        }
-
-        int temp = list.get(list.size()-1);
-        for(int i=list.size()-1; i>=1; i--) {
-            list.set(i, list.get(i-1));
-        }
-        list.set(0,temp);
-        int answer = list.stream().mapToInt(i->i).min().getAsInt();
-        for(int w=y1; w<=y2; w++){
-            maps[x1][w] = list.remove(0);
-        }
-        for(int h=x1+1; h<=x2; h++){
-            maps[h][y2] = list.remove(0);
+        while (true){
+            for(int repeat=0; repeat<width; repeat++){
+                x = x + increase;
+                array[y][x] = list.get(idx++);
+            }
+            width--;
+            if(idx >= list.size()) break;
+            for(int repeat=0; repeat<height; repeat++){
+                y = y + increase;
+                array[y][x] = list.get(idx++);
+            }
+            height--;
+            if(idx >= list.size()) break;
+            increase *= -1;
         }
 
-        for(int w=y2-1; w>=y1; w--){
-            maps[x2][w] = list.remove(0);
+        return result;
+    }
+    public List<Integer> getOutLineInArray(int[][] array, int x, int y, int width, int height){
+        int increase = 1;
+        int N = (width + height) * 2 -2;
+        x--;
+        List<Integer> result = new ArrayList<>();
+
+        while (true){
+            for(int repeat=0; repeat<width; repeat++){
+                x = x + increase;
+                result.add(array[y][x]);
+            }
+            width--;
+            if(result.size() >= N) break;
+            for(int repeat=0; repeat<height; repeat++){
+                y = y + increase;
+                result.add(array[y][x]);
+            }
+            height--;
+            if(result.size() >= N) break;
+            increase *= -1;
         }
 
-        for(int h=x2-1; h>=x1+1; h--){
-            maps[h][x1] = list.remove(0);
-        }
-        return answer;
+        return result;
     }
 }
