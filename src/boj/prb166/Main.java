@@ -36,7 +36,10 @@ class Solution {
                 answer.add(key);
             }
         }
-
+        int[] a = new int[4];
+        System.out.println(Arrays.toString(a));
+        List<Integer> s  = new ArrayList<>();
+        System.out.println(Arrays.toString(s.toArray()));
         Collections.sort(answer);
         return answer.stream().map(String::new).toArray(String[]::new);
     }
