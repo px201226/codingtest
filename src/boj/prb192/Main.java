@@ -10,10 +10,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Stack;
 
 public class Main {
 
+
     public static void main(String[] args) throws IOException {
+        Stack<Integer> stack = new Stack<>();
+        HashMap<Character,Character> map = new HashMap<>();
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
