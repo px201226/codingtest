@@ -16,9 +16,7 @@ public class Main {
 
 
     public static void main(String[] args) throws IOException {
-        Stack<Integer> stack = new Stack<>();
-        HashMap<Character,Character> map = new HashMap<>();
-
+        System.out.println((32 >> 5) & 1  );
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
