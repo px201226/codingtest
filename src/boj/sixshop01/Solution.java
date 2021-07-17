@@ -14,6 +14,7 @@ public class Solution {
         public Machine(int state, int index) {
             this.state = state;
             this.index = index;
+
         }
     }
 
@@ -21,8 +22,18 @@ public class Solution {
         Solution solution = new Solution();
         int[] solution1 = solution.solution(3, new int[]{4, 2, 4, 5, 3});
         System.out.println(Arrays.toString(solution1));
+
+        List<Integer> integers = new ArrayList<>();
+        solution.test(integers, Optional.of(123L));
     }
 
+    public void test(List<? extends Number> list,Optional<? extends Number> optionalNumber){
+
+    }
+
+    public <T extends Number> T get(T t){
+        return t;
+    }
     public int[] solution(int N, int[] coffee_times) {
         List<Integer> answer = new ArrayList<>();
         Machine[] machines = new Machine[N];
